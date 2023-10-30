@@ -4,6 +4,7 @@ from scipy.stats import pearsonr
 # Ratings dataset
 ratings = pd.read_csv('ml-latest-small/ratings.csv')
 
+print("Assignment 1 part (a)")
 print(ratings.head())
 print(f"Number of ratings: {len(ratings)}")
 
@@ -45,12 +46,14 @@ def recommend_movies(user):
     for movie, similar_users in recommendations.items():
         total_similarity = sum(similarity for _, similarity in similar_users)
         if total_similarity != 0:  # Added check for zero similarity
-            weighted_rating = sum(similarity * user_item_matrix.loc[user, movie] for _, similarity in similar_users)
+            weighted_rating = sum(similarity * user_item_matrix.loc[similar_user_id, movie] for similar_user_id, similarity in similar_users)
             predicted_rating = weighted_rating / total_similarity
             recommended_movies.append((movie, predicted_rating))
     
     recommended_movies.sort(key=lambda x: x[1], reverse=True)
     return recommended_movies
+
+print("Assignment 1 part (b)")
 
 # Test user IDs
 user1 = 1
@@ -59,7 +62,14 @@ user2 = 2
 similarity = pearson_similarity(user1, user2)
 print(f"Pearson correlation between User {user1} and User {user2}: {similarity}")
 
+print("Assignment 1 part (c)")
+
 recommended_movies = recommend_movies(user1)
 print(f"Recommended movies for user {user1}:")
 for movie_id, predicted_rating in recommended_movies[:10]:
     print(f"Movie ID: {movie_id}, Predicted Rating: {predicted_rating}")
+
+print("Assignment 1 part (d)")
+
+
+print("Assignment 1 part (e)")
