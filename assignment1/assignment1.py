@@ -1,15 +1,6 @@
 import pandas as pd
 from scipy.stats import pearsonr
 
-# Ratings dataset
-ratings = pd.read_csv('ml-latest-small/ratings.csv')
-
-print("Assignment 1 part (a)")
-print(ratings.head())
-print(f"Number of ratings: {len(ratings)}")
-
-user_item_matrix = ratings.pivot(index='userId', columns='movieId', values='rating').fillna(0)
-
 # Compute Pearson correlation between users
 def pearson_similarity(user1, user2):
     common_movies = user_item_matrix.loc[user1].mul(user_item_matrix.loc[user2], fill_value=0)
@@ -53,6 +44,28 @@ def recommend_movies(user):
     recommended_movies.sort(key=lambda x: x[1], reverse=True)
     return recommended_movies
 
+# Get similar users and recommended movies for a user
+def get_recommendations_for_user(user, num_similar_users=10, num_recommended_movies=10):
+    similar_users = find_similar_users(user, num_similar_users)
+    
+    similar_users_list = [user_id for user_id, _ in similar_users]
+    
+    recommended_movies = recommend_movies(user)
+    
+    recommended_movies_list = [movie_id for movie_id, _ in recommended_movies[:num_recommended_movies]]
+    
+    return similar_users_list, recommended_movies_list
+
+print("Assignment 1 part (a)")
+
+# Ratings dataset
+ratings = pd.read_csv('ml-latest-small/ratings.csv')
+
+print(ratings.head())
+print(f"Number of ratings: {len(ratings)}")
+
+user_item_matrix = ratings.pivot(index='userId', columns='movieId', values='rating').fillna(0)
+
 print("Assignment 1 part (b)")
 
 # Test user IDs
@@ -70,6 +83,10 @@ for movie_id, predicted_rating in recommended_movies[:10]:
     print(f"Movie ID: {movie_id}, Predicted Rating: {predicted_rating}")
 
 print("Assignment 1 part (d)")
+
+similar_users_list, recommended_movies_list = get_recommendations_for_user(user1)
+print(f"Similar users for user {user1}: {similar_users_list}")
+print(f"Recommended movies for user {user1}: {recommended_movies_list}")
 
 
 print("Assignment 1 part (e)")
