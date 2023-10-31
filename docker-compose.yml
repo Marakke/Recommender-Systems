@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  assignment-1:
+    build:
+      dockerfile: Dockerfile
+      context:  ./assignment1
