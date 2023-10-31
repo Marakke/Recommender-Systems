@@ -57,6 +57,7 @@ def get_recommendations_for_user(user, num_similar_users=10, num_recommended_mov
     
     return similar_users_list, recommended_movies_list
 
+# Compute cosine similarity between users
 def cosine_similarity(user1, user2):
     ratings1 = user_item_matrix.loc[user1].values
     ratings2 = user_item_matrix.loc[user2].values
