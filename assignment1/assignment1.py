@@ -1,5 +1,6 @@
 import pandas as pd
 from scipy.stats import pearsonr
+import numpy as np
 
 # Compute Pearson correlation between users
 def pearson_similarity(user1, user2):
@@ -56,6 +57,22 @@ def get_recommendations_for_user(user, num_similar_users=10, num_recommended_mov
     
     return similar_users_list, recommended_movies_list
 
+def cosine_similarity(user1, user2):
+    ratings1 = user_item_matrix.loc[user1].values
+    ratings2 = user_item_matrix.loc[user2].values
+    
+    # Calculate the dot product
+    dot_product = np.dot(ratings1, ratings2)
+    
+    # Calculate the magnitude (norm) of each vector
+    magnitude1 = np.linalg.norm(ratings1)
+    magnitude2 = np.linalg.norm(ratings2)
+    
+    # Calculate cosine similarity
+    similarity = dot_product / (magnitude1 * magnitude2)
+    
+    return similarity
+
 print("Assignment 1 part (a)")
 
 # Ratings dataset
@@ -88,5 +105,7 @@ similar_users_list, recommended_movies_list = get_recommendations_for_user(user1
 print(f"Similar users for user {user1}: {similar_users_list}")
 print(f"Recommended movies for user {user1}: {recommended_movies_list}")
 
-
 print("Assignment 1 part (e)")
+
+similarity = cosine_similarity(user1, user2)
+print(f"Cosine similarity between User {user1} and User {user2}: {similarity}")
