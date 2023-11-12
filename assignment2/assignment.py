@@ -69,6 +69,41 @@ def generate_group_recommendations(user_ids, aggregation_method):
     top_recommendations = group_aggregated.sort_values(ascending=False).head(10)
     return top_recommendations
 
+def calculate_disagreement_score(user1, user2):
+    common_movies = user_item_matrix.loc[user1].mul(user_item_matrix.loc[user2], fill_value=0)
+    disagreement = (user_item_matrix.loc[user1] - user_item_matrix.loc[user2]).abs()
+    disagreement = disagreement[common_movies != 0]
+    return disagreement.mean()
+
+def modify_recommendations_based_on_disagreements(group_recommendations, user_ids):
+    total_disagreement = 0
+    count = 0
+    for i in range(len(user_ids)):
+        for j in range(i+1, len(user_ids)):
+            disagreement_score = calculate_disagreement_score(user_ids[i], user_ids[j])
+            if pd.notna(disagreement_score):
+                total_disagreement += disagreement_score
+                count += 1
+
+    if count > 0:
+        average_disagreement = total_disagreement / count
+        group_recommendations *= (1 - average_disagreement)
+
+    return group_recommendations
+
+def generate_group_recommendations_with_disagreement(user_ids, aggregation_method):
+    group_recommendations = pd.DataFrame()
+    
+    for user_id in user_ids:
+        individual_recommendations = recommend_movies(user_id)
+        group_recommendations[user_id] = individual_recommendations['Predicted Rating']
+
+    group_recommendations = modify_recommendations_based_on_disagreements(group_recommendations, user_ids)
+    group_aggregated = aggregation_method(group_recommendations)
+    
+    top_recommendations = group_aggregated.sort_values(ascending=False).head(10)
+    return top_recommendations
+
 print("Assignment 2 part (a)")
 
 # Test user group
@@ -83,3 +118,10 @@ print(average_recommendations)
 misery_recommendations = generate_group_recommendations(group_of_users, least_misery_aggregation)
 print("\nTop 10 Recommendations (Least Misery Method):")
 print(misery_recommendations)
+
+print("Assignment 2 part (b)")
+
+# Modified Recommendations with Disagreement
+disagreement_recommendations = generate_group_recommendations_with_disagreement(group_of_users, average_aggregation)
+print("\nTop 10 Recommendations Considering Disagreements:")
+print(disagreement_recommendations)

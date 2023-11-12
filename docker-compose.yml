@@ -4,4 +4,11 @@ services:
   assignment-1:
     build:
       dockerfile: Dockerfile
-      context:  ./assignment1
+      context: ./assignment1
+
+  assignment-2:
+    build:
+      dockerfile: Dockerfile
+      context: ./assignment2
+    depends_on:
+      - assignment-1
