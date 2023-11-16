@@ -159,7 +159,7 @@ def generate_group_recommendations_with_disagreement(user_ids, aggregation_metho
 print("Assignment 2 part (a)")
 
 # Test user group
-group_of_users = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+group_of_users = [11, 22, 33]
 
 # Average Method
 average_recommendations = generate_group_recommendations(group_of_users, average_aggregation)
