@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 
 COPY . /app/
 
-CMD ["python", "assignment2.py"]
+CMD ["python", "assignment.py"]
