@@ -74,15 +74,14 @@ def generate_group_recommendations(user_ids, aggregation_method):
     group_recommendations = pd.DataFrame()
     
     for user_id in user_ids:
-        # Compute individual recommendations using user-based collaborative filtering
         individual_recommendations = recommend_movies(user_id)
         group_recommendations[user_id] = individual_recommendations['Predicted Rating']
 
-    # Aggregate recommendations using the specified method
-    group_aggregated = aggregation_method(group_recommendations)
+    # Aggregate recommendations using the specified method across all users
+    group_aggregated = aggregation_method(group_recommendations.T)  # Transpose for aggregation
     
-    # Display top 10 movies with the highest predicted scores based on the aggregation method
-    top_recommendations = group_aggregated.sort_values(ascending=False).head(10)
+    # Get the top 10 movie IDs from the aggregated recommendations
+    top_recommendations = group_aggregated.sort_values(ascending=False).head(10).index.tolist()
     return top_recommendations
 
 """
@@ -148,18 +147,19 @@ def generate_group_recommendations_with_disagreement(user_ids, aggregation_metho
 
     # Modify the group recommendations based on the disagreement between users
     group_recommendations = modify_recommendations_based_on_disagreements(group_recommendations, user_ids)
-    # Aggregate the modified group recommendations using the provided method
-    group_aggregated = aggregation_method(group_recommendations)
     
-    # Sort the aggregated recommendations and return the top 10
-    top_recommendations = group_aggregated.sort_values(ascending=False).head(10)
+    # Aggregate the modified group recommendations using the provided method
+    group_aggregated = aggregation_method(group_recommendations.T)  # Transpose for aggregation
+    
+    # Get the top 10 movie IDs from the aggregated recommendations
+    top_recommendations = group_aggregated.sort_values(ascending=False).head(10).index.tolist()
     return top_recommendations
 
 
 print("Assignment 2 part (a)")
 
 # Test user group
-group_of_users = [11, 22, 33]
+group_of_users = [1, 2, 3]
 
 # Average Method
 average_recommendations = generate_group_recommendations(group_of_users, average_aggregation)
