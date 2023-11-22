@@ -13,6 +13,6 @@ Then, typing "python assignment.py" in the assignment3 directory will run the co
 
 The assignment results will be printed out to the console.
 
-# The method
+# Sequential Recommendations Method
 
-The method proposed for generating sequential group recommendations leverages collaborative filtering and a k-nearest neighbors to find similar users within a group based on movie preferences. By aggregating recommendations from diverse neighbors and introducing randomness, it suggests sequences of top-rated movies for the entire group. This approach balances individual preferences and collective appeal, aiming to offer varied movie sets catering to different tastes while ensuring a shared viewing experience.
+The method proposed for generating sequential group recommendations leverages a diverse approach in generating movie recommendations for a user group. It utilizes a sequential process, employing a separate kNN model for each recommendation sequence. Within each sequence, the model dynamically selects varying neighboring users and explores their unrated movies, opting for random selections instead of consistently favoring top-rated choices. This multi-stage diversity augmentation results in distinct sets of movie suggestions across the three sequences, ensuring varied and personalized recommendations for the user group to explore together.
