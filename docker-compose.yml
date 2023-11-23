@@ -18,5 +18,4 @@ services:
       dockerfile: Dockerfile
       context: ./assignment3
     depends_on:
-      - assignment-1
       - assignment-2
