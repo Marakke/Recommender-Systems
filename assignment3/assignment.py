@@ -43,6 +43,8 @@ ratings_matrix = group_ratings.pivot(index='userId', columns='movieId', values='
 # Generate recommendations for the user group in 3 sequences with diversified aggregation
 group_top_movies = generate_group_recommendations(user_group, ratings_matrix, num_sequences=3)
 
+print('Assignment 3')
+
 # Display top-10 recommendations for the user group in 3 sequences
 for sequence, movies_sequence in enumerate(group_top_movies, start=1):
     print(f"Sequence {sequence} Top 10 movies for the user group to watch together:")
