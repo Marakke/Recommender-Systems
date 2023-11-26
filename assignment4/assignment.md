@@ -15,6 +15,4 @@
 ```python assignment.py```
 4. The program will run, and the results will be displayed in the terminal. 
 
-# Sequential Recommendations Method
 
-The method proposed for generating sequential group recommendations leverages a diverse approach in generating movie recommendations for a user group. It utilizes a sequential process, employing a separate kNN model for each recommendation sequence. Within each sequence, the model dynamically selects varying neighboring users and explores their unrated movies, opting for random selections instead of consistently favoring top-rated choices. This multi-stage diversity augmentation results in distinct sets of movie suggestions across the three sequences, ensuring varied and personalized recommendations for the user group to explore together.

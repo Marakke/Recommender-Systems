@@ -19,3 +19,10 @@ services:
       context: ./assignment3
     depends_on:
       - assignment-2
+
+  assignment-4:
+    build:
+      dockerfile: Dockerfile
+      context: ./assignment4
+    depends_on:
+      - assignment-3

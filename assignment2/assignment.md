@@ -1,14 +1,16 @@
-# How to run the code
+## How to Run the Program
 
-The code can be run either via Docker or via PIP.
-
-1. Docker
-
-With Docker installed, typing "docker compose up" in terminal will run the code.
-
-2. PIP
-
-First, install the libraries by typing "pip install -r requirements.txt" to the terminal.
-Then, typing "python assignment" in the assignment2 directory will run the code.
-
-The assignment results will be printed out to the console.
+### Using Docker 
+1. Open the terminal at the root directory of this project. 
+2. Start the Docker daemon (also known as the Docker application). 
+3. Run the following command:  
+```docker-compose up```
+4. This command will build and run the project, executing each weekly assignment. You will see the process and outputs in your terminal.  
+ 
+### Using Python Pip 
+1. Open a terminal in the directory where you wish to run the program. 
+2. Run the following command to install the project dependencies:    
+```pip install -r requirements.txt```
+3. After the dependencies are installed, execute the program with:    
+```python assignment.py```
+4. The program will run, and the results will be displayed in the terminal. 
