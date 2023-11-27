@@ -214,7 +214,7 @@ for sequence, movies_sequence in enumerate(group_top_movies, start=1):
     print(f"Sequence {sequence} Top 10 movies for the user group to watch together:")
     print(movies_sequence[:10])
     for movie_id in movies_sequence[:10]:
-        print(f"Movie title: {movies_data[movie_id]['title']}:")
+        print(f"Movie title: {movies_data[movie_id]['title']}")
 
 print("1. Explain the atomic case for the movie 'Matrix':")
 print(explain_atomic_case(2571, additional_info, ratings_matrix, movies_data))
