@@ -197,7 +197,7 @@ group_ratings = ratings[ratings['userId'].isin(user_group)]
 ratings_matrix = group_ratings.pivot(index='userId', columns='movieId', values='rating').fillna(0)
 
 # Generate recommendations for the user group in 3 sequences with diversified aggregation
-group_top_movies, additional_info = generate_group_recommendations_with_info(user_group, ratings_matrix, num_sequences=4)
+group_top_movies, additional_info = generate_group_recommendations_with_info(user_group, ratings_matrix, num_sequences=3)
 
 movies_data = {}  # This should be a dictionary with movie IDs as keys and their details (including genre) as values
 
